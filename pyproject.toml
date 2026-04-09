@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "llm-from-scratch"
+version = "0.1.0"
+description = "A small transformer LLM implemented from scratch on top of NumPy/CuPy."
+requires-python = ">=3.9"
+dependencies = [
+    "numpy>=1.23",
+]
+
+[project.optional-dependencies]
+gpu = ["cupy-cuda12x"]
+dev = [
+    "pytest>=7",
+    "ruff>=0.4",
+]
+plot = ["matplotlib"]
+
+[project.scripts]
+llm = "llm.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "W"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra -q"
